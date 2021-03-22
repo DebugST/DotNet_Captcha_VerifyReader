@@ -1,0 +1,238 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>VerifyReader</name>
+    </assembly>
+    <members>
+        <member name="M:VerifyReader.CodeHelper.#ctor(VerifyReader.CodeInfo)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="ci">验证码配置信息</param>
+        </member>
+        <member name="M:VerifyReader.CodeHelper.GetCodeString(System.Drawing.Image)">
+            <summary>
+            传入验证码图片返回验证码字符
+            </summary>
+            <param name="imgSrc"></param>
+            <returns>验证码字符窜</returns>
+        </member>
+        <member name="M:VerifyReader.CodeHelper.GetBinaryImage(System.Drawing.Image,System.Byte,System.Int32@,System.Int32@,System.Collections.Generic.List{System.String})">
+            <summary>
+            获取图像的二值化图像(不会操作原图)
+            </summary>
+            <param name="imgSrc">原始图像</param>
+            <param name="byValue">二值化阈值</param>
+            <param name="nBlackCount">返回二值化后黑点个数</param>
+            <param name="nWhiteCount">返回二值化后白点个数</param>
+            <param name="lstExp">条件表达式</param>
+            <returns>二值化后的图像</returns>
+        </member>
+        <member name="M:VerifyReader.CodeHelper.ReverseColors(System.Drawing.Image)">
+            <summary>
+            对图像进行反射图里(操作原图)
+            </summary>
+            <param name="imgSrc"></param>
+            <returns>反色后图像</returns>
+        </member>
+        <member name="M:VerifyReader.CodeHelper.GetCharRect(System.Drawing.Image,System.Int32,System.Int32)">
+            <summary>
+            获取验证码字符所在的区域
+            </summary>
+            <param name="imgDark">二值化后的图像</param>
+            <param name="nPixelMin">连续的最小像素个数 小于此数将被忽略</param>
+            <param name="nPixelMax">连续的最大像素个数 大于此数将被忽略</param>
+            <returns></returns>
+        </member>
+        <member name="M:VerifyReader.CodeHelper.GetRectFromPoint(System.Int32,System.Int32,System.Drawing.Point,System.Drawing.Color,System.Drawing.Color)">
+            <summary>
+            更具起始坐标点获取该点的联通区域
+            </summary>
+            <param name="nPixelMin">连续的最小像素个数 小于此数将被忽略</param>
+            <param name="nPixelMax">连续的最大像素个数 大于此数将被忽略</param>
+            <param name="ptStart">起始点位置</param>
+            <param name="clrSrc">点的颜色</param>
+            <param name="clrSet">标记颜色</param>
+            <returns>目标点的连通区域</returns>
+        </member>
+        <member name="M:VerifyReader.CodeHelper.GetNextPoint(System.Drawing.Point,System.Int32)">
+            <summary>
+            获取下一个连通像素点
+            </summary>
+            <param name="ptStart">当前位置</param>
+            <param name="nArgb">当前像素颜色</param>
+            <returns>下一个点的坐标</returns>
+        </member>
+        <member name="M:VerifyReader.CodeHelper.GetAvg(System.Byte,System.Byte,System.Byte)">
+            <summary>
+            获取r g b平均值
+            </summary>
+            <param name="b">blue</param>
+            <param name="g">green</param>
+            <param name="r">red</param>
+            <returns>平均值</returns>
+        </member>
+        <member name="M:VerifyReader.CodeHelper.GetArgbFormByColor(System.Int32,System.Int32)">
+            <summary>
+            从缓存中获取图像指定坐标的ARGB值
+            </summary>
+            <param name="x">x坐标</param>
+            <param name="y">y坐标</param>
+            <returns>ARGB值</returns>
+        </member>
+        <member name="M:VerifyReader.CodeHelper.SetColorFormByColorInfo(System.Int32,System.Int32,System.Drawing.Color)">
+            <summary>
+            从缓存设置图像指定坐标的颜色
+            </summary>
+            <param name="x">x坐标</param>
+            <param name="y">y组表</param>
+            <param name="clr">要设置的颜色</param>
+        </member>
+        <member name="M:VerifyReader.CodeHelper.ExecExpress(System.String)">
+            <summary>
+            返回文字表达式的执行结果
+            </summary>
+            <param name="strExp">表达式字符串</param>
+            <returns>布尔值</returns>
+        </member>
+        <member name="M:VerifyReader.CodeHelper.GetBestSameChar(System.Drawing.Image,System.Drawing.Rectangle)">
+            <summary>
+            从样本中获取最相似的图像并返回字符
+            </summary>
+            <param name="imgDarkCodeImage">验证码图像</param>
+            <param name="rect">字符所在的区域</param>
+            <returns>最相识的字符</returns>
+        </member>
+        <member name="M:VerifyReader.CodeHelper.GetBestSameCount(System.Drawing.Image,System.Char)">
+            <summary>
+            获取验证码字符图在字符ch的模版中最高重叠率的像素
+            </summary>
+            <param name="imgDark">验证码字符图像</param>
+            <param name="ch"></param>
+            <returns>在ch模版中最高重叠的个数</returns>
+        </member>
+        <member name="M:VerifyReader.CodeHelper.CmpImage(System.Drawing.Image,System.Drawing.Image)">
+            <summary>
+            将imgB以imgA的大小重叠在一起比对
+            </summary>
+            <param name="imgA">目标图片</param>
+            <param name="imgB">模版图片</param>
+            <returns>非白色像素点的重叠个数</returns>
+        </member>
+        <member name="M:VerifyReader.CodeInfo.AddCode(System.Char,System.Drawing.Image)">
+            <summary>
+            添加一个验证码样本
+            </summary>
+            <param name="ch">验证码字符</param>
+            <param name="imgCode">验证码图像</param>
+            <returns>是否添加成功</returns>
+        </member>
+        <member name="M:VerifyReader.CodeInfo.GetCodeImages(System.Char)">
+            <summary>
+            根据字符获取该字符下的所有样本图像
+            </summary>
+            <param name="ch">目标字符</param>
+            <returns>样本列表</returns>
+        </member>
+        <member name="M:VerifyReader.CodeInfo.RemoveCode(System.Char)">
+            <summary>
+            删除目标字符下的所有样本图像
+            </summary>
+            <param name="ch">目标字符</param>
+        </member>
+        <member name="M:VerifyReader.CodeInfo.RemoveCode(System.Char,System.Drawing.Image)">
+            <summary>
+            删除目标字符中指定样本
+            </summary>
+            <param name="ch">目标字符</param>
+            <param name="imgCode">目标图像</param>
+        </member>
+        <member name="M:VerifyReader.CodeInfo.ClearCode">
+            <summary>
+            清除所有验证码样本
+            </summary>
+        </member>
+        <member name="M:VerifyReader.CodeInfo.GetChars">
+            <summary>
+            获取现有的验证码字符
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VerifyReader.CodeInfo.GetImageHash(System.Drawing.Image)">
+            <summary>
+            获取图像hash
+            </summary>
+            <param name="img">图像</param>
+            <returns>hash</returns>
+        </member>
+        <member name="M:VerifyReader.CodeInfo.RefreshHash">
+            <summary>
+            刷行图像hash 反序列化后图像hash可能有所变化
+            </summary>
+        </member>
+        <member name="M:VerifyReader.CodeInfo.SaveToFile(VerifyReader.CodeInfo,System.String)">
+            <summary>
+            将目标配置保存到文件中
+            </summary>
+            <param name="ci">目标配置</param>
+            <param name="strFileName">配置文件名(.ci.png后缀以图片形式保存配置 方便查看)</param>
+        </member>
+        <member name="M:VerifyReader.CodeInfo.LoadFromFile(System.String)">
+            <summary>
+            从文件中导入配置
+            </summary>
+            <param name="strFileName">文件名</param>
+            <returns>验证码配置</returns>
+        </member>
+        <member name="P:VerifyReader.CodeInfo.Url">
+            <summary>
+            配置验证码时候的URL 识别并不使用
+            </summary>
+        </member>
+        <member name="P:VerifyReader.CodeInfo.ImageTemp">
+            <summary>
+            配置验证码时候的图像 识别并不使用
+            </summary>
+        </member>
+        <member name="P:VerifyReader.CodeInfo.CodeCount">
+            <summary>
+            验证码字符的个数
+            </summary>
+        </member>
+        <member name="P:VerifyReader.CodeInfo.BinaryValues">
+            <summary>
+            验证码二值化阈值
+            </summary>
+        </member>
+        <member name="P:VerifyReader.CodeInfo.PixelMin">
+            <summary>
+            连通像素的最小像素点个数
+            </summary>
+        </member>
+        <member name="P:VerifyReader.CodeInfo.PixelMax">
+            <summary>
+            连通像素的最大像素点个数
+            </summary>
+        </member>
+        <member name="P:VerifyReader.CodeInfo.RectangleCut">
+            <summary>
+            验证码的裁剪区域
+            </summary>
+        </member>
+        <member name="P:VerifyReader.CodeInfo.IsAutoSelectRect">
+            <summary>
+            是否是自动识别验证码字符区域
+            </summary>
+        </member>
+        <member name="P:VerifyReader.CodeInfo.CodeRectangles">
+            <summary>
+            验证码字符所在的区域 IsAutoSelectRect=true 时无效
+            </summary>
+        </member>
+        <member name="P:VerifyReader.CodeInfo.Express">
+            <summary>
+            二值化时去干扰表达式
+            </summary>
+        </member>
+    </members>
+</doc>
